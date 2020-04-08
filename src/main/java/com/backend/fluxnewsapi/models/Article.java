@@ -1,6 +1,7 @@
 package com.backend.fluxnewsapi.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 
 @Data
+@EqualsAndHashCode
 @Entity(name = "articles")
 public class Article {
     @Id
