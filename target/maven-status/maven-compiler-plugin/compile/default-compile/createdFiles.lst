@@ -9,6 +9,7 @@ com\backend\fluxnewsapi\services\ArticlesRepository.class
 com\backend\fluxnewsapi\dtos\models\ArticleDto.class
 com\backend\fluxnewsapi\models\ArticleUser.class
 com\backend\fluxnewsapi\models\Article.class
+com\backend\fluxnewsapi\config\DbConnection.class
 com\backend\fluxnewsapi\models\ArticleUserKey.class
 com\backend\fluxnewsapi\dtos\DataMap.class
 com\backend\fluxnewsapi\exceptions\MyMappingException.class
