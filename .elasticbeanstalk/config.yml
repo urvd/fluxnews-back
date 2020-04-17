@@ -1,5 +1,5 @@
 deploy:
-  artifact: target/demo-0.0.1-SNAPSHOT.jar
+  artifact: target/fluxnews-api.war
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
