@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FluxnewsApiApplication {
 
+
 	@GetMapping("/")
-	public String startHello(){
-		return  "Hello the world !!";
-	}
+	public String startHello(){return  "Hello the world !!";}
 	public static void main(String[] args) {
+		//DbConnection dbConnection = new DbConnection();
 		SpringApplication.run(FluxnewsApiApplication.class, args);
 	}
 
