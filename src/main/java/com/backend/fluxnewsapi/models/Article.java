@@ -23,6 +23,6 @@ public class Article {
     private String tilte;
     private String urlImage;
     private String urlArticle;
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     Set<ArticleUser> articleUser;
 }

@@ -10,20 +10,20 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode
 @Entity
-public final  class ArticleUser {
-/*    @EmbeddedId
-    private ArticleUserKey keyId;*/
+public final class ArticleUser {
+//    @EmbeddedId
+//    private ArticleUserKey keyId;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userid")
-    User user;
+    final User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("articleid")
-    Article article;
+    final Article article;
 
     @Column(name = "isread")
     private boolean isRead;

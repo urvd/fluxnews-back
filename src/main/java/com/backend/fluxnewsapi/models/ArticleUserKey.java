@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode
-@Embeddable
+//@Embeddable
 public class ArticleUserKey implements Serializable {
     @Column(name = "userid")
     private int userId;

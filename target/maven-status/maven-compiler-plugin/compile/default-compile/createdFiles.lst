@@ -1,0 +1,17 @@
+com\backend\fluxnewsapi\FluxnewsApiApplication.class
+com\backend\fluxnewsapi\routes\ArticlesRessource.class
+com\backend\fluxnewsapi\config\Script.class
+com\backend\fluxnewsapi\services\UsersRepository.class
+com\backend\fluxnewsapi\config\CorsFilter.class
+com\backend\fluxnewsapi\dtos\models\UserDto.class
+com\backend\fluxnewsapi\models\User.class
+com\backend\fluxnewsapi\services\ArticlesRepository.class
+com\backend\fluxnewsapi\dtos\models\ArticleDto.class
+com\backend\fluxnewsapi\models\ArticleUser.class
+com\backend\fluxnewsapi\models\Article.class
+com\backend\fluxnewsapi\config\DbConnection.class
+com\backend\fluxnewsapi\models\ArticleUserKey.class
+com\backend\fluxnewsapi\dtos\DataMap.class
+com\backend\fluxnewsapi\exceptions\MyMappingException.class
+com\backend\fluxnewsapi\routes\UsersRessource.class
+com\backend\fluxnewsapi\ServletInitializer.class
