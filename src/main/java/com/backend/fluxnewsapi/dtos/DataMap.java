@@ -6,24 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
 public class DataMap<T,U> {
-    private T OT;
-    private U OU;
-    @Autowired
+    //T : entity, U: dto
     private ModelMapper modelMapper;
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
+    public DataMap(){
+        modelMapper = new ModelMapper();
     }
+
     public U convertToDto(T entity, Class<U> u) throws MyMappingException{
-        if(u == OU){
+        //ModelMapper modelMapper = new ModelMapper();
+        try{
             return modelMapper.map(entity,u);
+        }catch (Exception e) {
+            throw new MyMappingException("fail to convert to dto");
         }
-        throw new MyMappingException("fail to convert to dto");
     }
     public T convertToEntity(U dto, Class<T> t) throws MyMappingException{
-        if(t == OT){
+        //ModelMapper modelMapper = new ModelMapper();
+        try{
             return modelMapper.map(dto,t);
+        }catch (Exception e){
+            throw new MyMappingException("fail to convert to entity");
         }
-        throw new MyMappingException("fail to convert to entity");
+
     }
 }
