@@ -1,4 +1,4 @@
-package com.backend.fluxnewsapi.routes;
+package com.backend.fluxnewsapi.controllers;
 
 import com.backend.fluxnewsapi.services.ArticlesRepository;
 import com.backend.fluxnewsapi.services.UsersRepository;
@@ -23,12 +23,20 @@ public class ArticlesRessource {
      * @return
      */
 
-    @GetMapping
-    public HashMap<String,Object> getArticle(){
+    @GetMapping("/all")
+    public List<ArticleDto> getArticle(){
+        /**
+         * set new Article() from api data throught ArticleDTO mapping and do it once a day
+         * return Article dto from article (store in db)
+         */
+    	Script sjs = Script.getInstance();
+        //sjs.runJavascript();
+        return (String) sjs.helloJavascript();
+    	
         return null;
     }
     @GetMapping("/savelist")
-    public HashMap<String,Object> getArticleALirePlusTard(){
+    public List<ArticleDto> getArticleALirePlusTard(){
         return null;
     }
     @PutMapping("/savelist/{id}")

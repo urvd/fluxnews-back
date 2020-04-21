@@ -1,4 +1,4 @@
-package com.backend.fluxnewsapi.routes;
+package com.backend.fluxnewsapi.controllers;
 
 import com.backend.fluxnewsapi.config.Script;
 import com.backend.fluxnewsapi.services.UsersRepository;
@@ -17,13 +17,6 @@ public class UsersRessource {
     public UsersRessource(UsersRepository usersRepository){
         this.usersRepository = usersRepository;
     }
-    @GetMapping("/js")
-    String get() throws ScriptException {
-        Script sjs = Script.getInstance();
-        //sjs.runJavascript();
-        return (String) sjs.helloJavascript();
-    }
-
     /**
      * Object: UserDto => nom, prenom, username, password
      * Object or String: UserSimpleDto => username
