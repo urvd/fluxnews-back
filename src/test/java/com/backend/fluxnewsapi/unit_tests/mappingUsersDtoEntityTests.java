@@ -1,39 +1,33 @@
 package com.backend.fluxnewsapi.unit_tests;
 
-import com.backend.fluxnewsapi.dtos.DataMap;
+import com.backend.fluxnewsapi.dtos.EntityDtoMap;
 import com.backend.fluxnewsapi.dtos.models.ArticleDto;
 import com.backend.fluxnewsapi.dtos.models.UserDto;
 import com.backend.fluxnewsapi.exceptions.MyMappingException;
-import com.backend.fluxnewsapi.models.Article;
 import com.backend.fluxnewsapi.models.User;
-import org.assertj.core.api.Assertions;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.InstanceOfAssertFactories.THROWABLE;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.modelmapper.MappingException;
 import org.modelmapper.ModelMapper;
-import org.springframework.util.Assert;
 
 public class mappingUsersDtoEntityTests {
 
     @Mock
     ModelMapper modelMapper;
     @InjectMocks
-    DataMap<User, UserDto> dataMapUser;
+    EntityDtoMap<User, UserDto> entityDtoMapUser;
     @InjectMocks
-    DataMap<User, ArticleDto> dataMapNotGood;
+    EntityDtoMap<User, ArticleDto> entityDtoMapNotGood;
 
     @BeforeEach
     void setUp(){
-        dataMapUser = new DataMap<>();
-        dataMapNotGood = new DataMap<>();
+        entityDtoMapUser = new EntityDtoMap<>();
+        entityDtoMapNotGood = new EntityDtoMap<>();
     }
 
     @Test
@@ -47,7 +41,7 @@ public class mappingUsersDtoEntityTests {
         userDto.setPassword("mypswd");
 
         //when
-        User user = dataMapUser.convertToEntity(userDto,User.class);
+        User user = entityDtoMapUser.convertToEntity(userDto,User.class);
 
         //Then
         assertThat(user.getId()).isEqualTo(userDto.getId());
@@ -67,7 +61,7 @@ public class mappingUsersDtoEntityTests {
         user.setPassword("mypswd");
 
         //when
-        UserDto userDto = dataMapUser.convertToDto(user,UserDto.class);
+        UserDto userDto = entityDtoMapUser.convertToDto(user,UserDto.class);
 
         //Then
         assertThat(user.getId()).isEqualTo(userDto.getId());
@@ -88,7 +82,7 @@ public class mappingUsersDtoEntityTests {
 
         try {
             //when
-            ArticleDto articleDto = dataMapNotGood.convertToDto(user, ArticleDto.class);
+            ArticleDto articleDto = entityDtoMapNotGood.convertToDto(user, ArticleDto.class);
         }catch (Exception e) {
             //Then
             org.junit.jupiter.api.Assertions.assertTrue(e instanceof  MyMappingException);

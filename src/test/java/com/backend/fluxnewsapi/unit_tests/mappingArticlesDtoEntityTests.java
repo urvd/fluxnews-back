@@ -1,7 +1,6 @@
 package com.backend.fluxnewsapi.unit_tests;
 
-import com.backend.fluxnewsapi.dtos.DataMap;
-import com.backend.fluxnewsapi.dtos.models.ArticleDto;
+import com.backend.fluxnewsapi.dtos.EntityDtoMap;
 import com.backend.fluxnewsapi.dtos.models.ArticleDto;
 import com.backend.fluxnewsapi.dtos.models.UserDto;
 import com.backend.fluxnewsapi.exceptions.MyMappingException;
@@ -18,14 +17,14 @@ public class mappingArticlesDtoEntityTests {
     @Mock
     ModelMapper modelMapper;
     @InjectMocks
-    DataMap<Article, ArticleDto> dataMapArticle;
+    EntityDtoMap<Article, ArticleDto> entityDtoMapArticle;
     @InjectMocks
-    DataMap<Article, UserDto> dataMapNotGood;
+    EntityDtoMap<Article, UserDto> entityDtoMapNotGood;
 
     @BeforeEach
     void setUp(){
-        dataMapArticle = new DataMap<>();
-        dataMapNotGood = new DataMap<>();
+        entityDtoMapArticle = new EntityDtoMap<>();
+        entityDtoMapNotGood = new EntityDtoMap<>();
     }
 
     @Test
@@ -34,18 +33,18 @@ public class mappingArticlesDtoEntityTests {
         ArticleDto articleDto = new ArticleDto();
         articleDto.setId(0);
         articleDto.setAuthor("pascal");
-        articleDto.setContenu("rctfvygbhnjok,lmlnjbhvgcfxfygnipo;poui,");
-        articleDto.setTilte("title news");
+        articleDto.setContent("rctfvygbhnjok,lmlnjbhvgcfxfygnipo;poui,");
+        articleDto.setTitle("title news");
         articleDto.setDescription("vyuiklkbbjlnk,m");
 
         //when
-        Article article = dataMapArticle.convertToEntity(articleDto,Article.class);
+        Article article = entityDtoMapArticle.convertToEntity(articleDto,Article.class);
 
         //Then
         assertThat(article.getId()).isEqualTo(articleDto.getId());
         assertThat(article.getAuthor()).isEqualTo(articleDto.getAuthor());
-        assertThat(article.getContenu()).isEqualTo(articleDto.getContenu());
-        assertThat(article.getTilte()).isEqualTo(articleDto.getTilte());
+        assertThat(article.getContent()).isEqualTo(articleDto.getContent());
+        assertThat(article.getTitle()).isEqualTo(articleDto.getTitle());
         assertThat(article.getDescription()).isEqualTo(articleDto.getDescription());
     }
     @Test
@@ -54,18 +53,18 @@ public class mappingArticlesDtoEntityTests {
         Article article = new Article();
         article.setId(0);
         article.setAuthor("pascal");
-        article.setContenu("rctfvygbhnjok,lmlnjbhvgcfxfygnipo;poui,");
-        article.setTilte("title news");
+        article.setContent("rctfvygbhnjok,lmlnjbhvgcfxfygnipo;poui,");
+        article.setTitle("title news");
         article.setDescription("vyuiklkbbjlnk,m");
 
         //when
-        ArticleDto articleDto = dataMapArticle.convertToDto(article,ArticleDto.class);
+        ArticleDto articleDto = entityDtoMapArticle.convertToDto(article,ArticleDto.class);
 
         //Then
         assertThat(article.getId()).isEqualTo(articleDto.getId());
         assertThat(article.getAuthor()).isEqualTo(articleDto.getAuthor());
-        assertThat(article.getContenu()).isEqualTo(articleDto.getContenu());
-        assertThat(article.getTilte()).isEqualTo(articleDto.getTilte());
+        assertThat(article.getContent()).isEqualTo(articleDto.getContent());
+        assertThat(article.getTitle()).isEqualTo(articleDto.getTitle());
         assertThat(article.getDescription()).isEqualTo(articleDto.getDescription());
     }
     @Test
@@ -74,13 +73,13 @@ public class mappingArticlesDtoEntityTests {
         Article article = new Article();
         article.setId(0);
         article.setAuthor("pascal");
-        article.setContenu("rctfvygbhnjok,lmlnjbhvgcfxfygnipo;poui,");
-        article.setTilte("title news");
+        article.setContent("rctfvygbhnjok,lmlnjbhvgcfxfygnipo;poui,");
+        article.setTitle("title news");
         article.setDescription("vyuiklkbbjlnk,m");
 
         try {
             //when
-            UserDto userDto = dataMapNotGood.convertToDto(article, UserDto.class);
+            UserDto userDto = entityDtoMapNotGood.convertToDto(article, UserDto.class);
         }catch (Exception e) {
             //Then
             org.junit.jupiter.api.Assertions.assertTrue(e instanceof  MyMappingException);
