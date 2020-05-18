@@ -7,8 +7,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class UserDto {
     private int id;
-    private String nom;
-    private String prenom;
+    private String email;
     private String username;
     private String password;
 }

@@ -5,5 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface UsersRepository extends JpaRepository<User,Integer> {
-    //Query("SELECT*FROM users u WHERE u.username =: AND u.")
+    //List<ArticleUser> findByArticleUsers(int id);
+    User findByEmail(String email);
+    User findByUsername(String username);
+    User findByPassword(String password);
 }

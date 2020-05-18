@@ -5,15 +5,13 @@ import com.backend.fluxnewsapi.dtos.models.ArticleDto;
 import com.backend.fluxnewsapi.dtos.models.UserDto;
 import com.backend.fluxnewsapi.exceptions.MyMappingException;
 import com.backend.fluxnewsapi.models.User;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class mappingUsersDtoEntityTests {
 
@@ -35,8 +33,7 @@ public class mappingUsersDtoEntityTests {
         //given
         UserDto userDto = new UserDto();
         userDto.setId(0);
-        userDto.setNom("pascal");
-        userDto.setPrenom("Coucoumba");
+        userDto.setEmail("pascalcoum@gjf.fr");
         userDto.setUsername("pascoum_077");
         userDto.setPassword("mypswd");
 
@@ -45,8 +42,7 @@ public class mappingUsersDtoEntityTests {
 
         //Then
         assertThat(user.getId()).isEqualTo(userDto.getId());
-        assertThat(user.getNom()).isEqualTo(userDto.getNom());
-        assertThat(user.getPrenom()).isEqualTo(userDto.getPrenom());
+        assertThat(user.getEmail()).isEqualTo(userDto.getEmail());
         assertThat(user.getUsername()).isEqualTo(userDto.getUsername());
         assertThat(user.getPassword()).isEqualTo(userDto.getPassword());
     }
@@ -55,8 +51,7 @@ public class mappingUsersDtoEntityTests {
         //given
         User user = new User();
         user.setId(0);
-        user.setNom("pascal");
-        user.setPrenom("Coucoumba");
+        user.setEmail("pascalcoum@gjf.fr");
         user.setUsername("pascoum_077");
         user.setPassword("mypswd");
 
@@ -65,8 +60,7 @@ public class mappingUsersDtoEntityTests {
 
         //Then
         assertThat(user.getId()).isEqualTo(userDto.getId());
-        assertThat(user.getNom()).isEqualTo(userDto.getNom());
-        assertThat(user.getPrenom()).isEqualTo(userDto.getPrenom());
+        assertThat(user.getEmail()).isEqualTo(userDto.getEmail());
         assertThat(user.getUsername()).isEqualTo(userDto.getUsername());
         assertThat(user.getPassword()).isEqualTo(userDto.getPassword());
     }
@@ -75,8 +69,7 @@ public class mappingUsersDtoEntityTests {
         //given
         User user = new User();
         user.setId(0);
-        user.setNom("pascal");
-        user.setPrenom("Coucoumba");
+        user.setEmail("pascalcoum@gjf.fr");
         user.setUsername("pascoum_077");
         user.setPassword("mypswd");
 
@@ -85,7 +78,7 @@ public class mappingUsersDtoEntityTests {
             ArticleDto articleDto = entityDtoMapNotGood.convertToDto(user, ArticleDto.class);
         }catch (Exception e) {
             //Then
-            org.junit.jupiter.api.Assertions.assertTrue(e instanceof  MyMappingException);
+            org.junit.jupiter.api.Assertions.assertTrue(e instanceof MyMappingException);
         }
     }
 }

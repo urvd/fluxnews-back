@@ -20,7 +20,7 @@ public class InitilisationRessource {
         /**
          * initialisation au moment de la création d'un User.
          */
-        Initialisation initialisation = new Initialisation();
+        Initialisation initialisation = new Initialisation(true);
         initRepository.save(initialisation);
     }
     //@GetMapping("/init/show")

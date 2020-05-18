@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping("/articles")
+@RequestMapping("/api/articles")
 public class ArticlesRessource {
 
     private UsersRepository usersRepository;
@@ -92,7 +92,9 @@ public class ArticlesRessource {
         }
     }
     @GetMapping("/savelist")
+    @ResponseBody
     public List<ArticleDto> getArticleALirePlusTard(){
+        //usersRepository.
         return null;
     }
     @PutMapping("/savelist/{id}")
