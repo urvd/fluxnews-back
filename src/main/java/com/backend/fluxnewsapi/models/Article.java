@@ -12,22 +12,31 @@ import java.util.Set;
 @Entity(name = "articles")
 public class Article {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     private String source;
     private String author;
     private String title;
     //@Column(name = "description",length = 1024)
     @Lob
     private String description;
-    @Column(length = 1024)
+    @Lob
     private String url;
-    @Column(length = 1024)
+    @Lob
+    @Column(name = "urlimage")
     private String urlImage;
+    @Column(name = "publishedat")
     private String publishedAt;
     //@Column(name = "content",length = 65025)
     @Lob
     private String content;
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    Set<ArticleUser> articleUser;
+    @OneToMany(mappedBy = "article")
+    private Set<ArticleUser> isRead;
+    @OneToMany(mappedBy = "article")
+    private Set<ArticleUser> isSave;
+    @OneToMany(mappedBy = "article")
+    private Set<ArticleUser> isNote;
+    @OneToMany(mappedBy = "article")
+    private Set<ArticleUser> isLike;
+    @OneToMany(mappedBy = "article")
+    private Set<ArticleUser> liker;
 }

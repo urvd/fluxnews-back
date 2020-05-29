@@ -1,6 +1,5 @@
 package com.backend.fluxnewsapi.dtos.models;
 
-import com.backend.fluxnewsapi.models.Article;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,7 +18,7 @@ public class ArticleDto {
         this.content = content;
     }
 
-    private int id;
+    private long id;
     private String source;
     private String author;
     private String title;

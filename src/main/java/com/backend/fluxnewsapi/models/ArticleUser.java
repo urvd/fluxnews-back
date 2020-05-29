@@ -5,25 +5,33 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
-import java.util.Set;
+import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode
-@Entity
-public final class ArticleUser {
-//    @EmbeddedId
-//    private ArticleUserKey keyId;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private  int id;
+@Entity(name = "articlesuser")
+public class ArticleUser implements Serializable {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    public ArticleUser(User user) {
+        this.user = user;
+        this.isLike = false;
+        this.isNote = false;
+        this.isRead = false;
+        this.isSave = false;
+        this.noter = 0;
+    }
+    @EmbeddedId
+    private ArticleUserKey keyId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("userid")
-    final User user;
+    @JoinColumn(name = "userid")
+    private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("articleid")
-    final Article article;
+    @JoinColumn(name = "articleid")
+    private Article article;
 
     @Column(name = "isread")
     private boolean isRead;

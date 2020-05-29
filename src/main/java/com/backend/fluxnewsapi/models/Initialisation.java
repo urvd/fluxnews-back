@@ -4,8 +4,7 @@ import com.backend.fluxnewsapi.utils.DateUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode
@@ -19,13 +18,23 @@ public class Initialisation {
          * set init date for tomorrow
          * so that when today is tomorrow
          * we can update it.
+         * and specific hour of updating
          */
-        this.id = "initial";
-        this.nextInitDate = DateUtils.tomorrow();
-        this.toInitied = true;
+        if(firstInit){
+            this.updateday =  DateUtils.today();
+            this.toInitied = false;
+        }else{
+            this.updateday =  DateUtils.tomorrow();
+            this.toInitied = false;
+        }
     }
     @Id
-    private String id;
-    private String nextInitDate;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String updateday;
+    @Column(name = "toinitied")
     private boolean toInitied;
+    @OneToOne
+    @MapsId
+    private User user;
 }

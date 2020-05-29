@@ -1,17 +1,18 @@
 package com.backend.fluxnewsapi.unit_tests;
 
-import com.backend.fluxnewsapi.dtos.EntityDtoMap;
-import com.backend.fluxnewsapi.dtos.models.ArticleDto;
-import com.backend.fluxnewsapi.dtos.models.UserDto;
-import com.backend.fluxnewsapi.exceptions.MyMappingException;
-import com.backend.fluxnewsapi.models.User;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.backend.fluxnewsapi.dtos.EntityDtoMap;
+import com.backend.fluxnewsapi.dtos.models.ArticleDto;
+import com.backend.fluxnewsapi.dtos.models.UserDto;
+import com.backend.fluxnewsapi.exceptions.MyMappingException;
+import com.backend.fluxnewsapi.models.User;
 
 public class mappingUsersDtoEntityTests {
 

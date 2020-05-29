@@ -3,7 +3,7 @@ package com.backend.fluxnewsapi.services;
 import com.backend.fluxnewsapi.models.Initialisation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface InitialisationRepository extends JpaRepository<Initialisation, String> {
+public interface InitialisationRepository extends JpaRepository<Initialisation, Long> {
     /*@Query("SELECT*FROM initialisation")
     Initialisation findInitedDataParam();*/
 
@@ -12,4 +12,11 @@ public interface InitialisationRepository extends JpaRepository<Initialisation, 
 
     @Query("UPDATE initialisation i SET i.nextInitDate = :tomorow, i.dataInitied = :init WHERE i.nextInitDate = today")
     void updateInitDataParam(@Param("tomorow") String tomorowDate, @Param("init") int init);*/
+
+    /*@Query("SELECT i FROM initialisation i WHERE i.updateday = ?1 AND i.userId = ?2")*/
+    Initialisation findByUserId(long userId);
+
+    /*@Query("SELECT u FROM User u WHERE u.status = ?1")
+    User findUserByStatus(Integer status);*/
+
 }

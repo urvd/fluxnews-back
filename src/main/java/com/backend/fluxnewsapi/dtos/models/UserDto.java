@@ -6,8 +6,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode
 public class UserDto {
-    private int id;
+    private long id;
     private String email;
     private String username;
     private String password;
+    private Boolean connectStatus;
 }

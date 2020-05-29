@@ -1,4 +1,4 @@
-package com.backend.fluxnewsapi.config;
+package com.backend.fluxnewsapi.traitrements;
 
 import com.backend.fluxnewsapi.dtos.models.ArticleDto;
 import com.backend.fluxnewsapi.dtos.models.Articlesfetched;
@@ -43,11 +43,13 @@ public class NewsApiFetch {
     private Articlesfetched convertFrom(JSONObject jsonObject) throws JSONException {
         Articlesfetched articlesfetched = new Articlesfetched();
         articlesfetched.setStatus((String)jsonObject.get("status"));
-        articlesfetched.setTotalResults((int)jsonObject.get("totalResults"));
+        //articlesfetched.setTotalResults((int)jsonObject.get("totalResults"));
+        articlesfetched.setTotalResults(30);
         ModelMapper modelMapper = new ModelMapper();
         JSONArray arrArticlesJson = jsonObject.getJSONArray("articles");
         List<ArticleDto> listArticles = new ArrayList<>();
-        for(int i=0;i<arrArticlesJson.length();i++) {
+        int i=0;
+        for(i=0;i<articlesfetched.getTotalResults();i++) {
             listArticles.add(new ArticleDto(arrArticlesJson.getJSONObject(i).getJSONObject("source").getString("name"),
                                     arrArticlesJson.getJSONObject(i).getString("author"),
                                     arrArticlesJson.getJSONObject(i).getString("title"),
@@ -56,6 +58,8 @@ public class NewsApiFetch {
                                     arrArticlesJson.getJSONObject(i).getString("urlToImage"),
                                     arrArticlesJson.getJSONObject(i).getString("publishedAt"),
                                     arrArticlesJson.getJSONObject(i).getString("content") ) );
+
+            listArticles.get(i).setId(i);
         }
         articlesfetched.setArticles(listArticles);
         return articlesfetched;

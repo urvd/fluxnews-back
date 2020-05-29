@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class FluxnewsApiApplication {
-
+	
 	public static void main(String[] args) {
-		//DbConnection dbConnection = new DbConnection();
 		SpringApplication.run(FluxnewsApiApplication.class, args);
 	}
 
