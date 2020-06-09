@@ -1,4 +1,4 @@
-package com.backend.fluxnewsapi.services;
+package com.backend.fluxnewsapi.repository;
 
 import com.backend.fluxnewsapi.models.Initialisation;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +15,7 @@ public interface InitialisationRepository extends JpaRepository<Initialisation, 
 
     /*@Query("SELECT i FROM initialisation i WHERE i.updateday = ?1 AND i.userId = ?2")*/
     Initialisation findByUserId(long userId);
+    boolean existsByUserId(long userId);
 
     /*@Query("SELECT u FROM User u WHERE u.status = ?1")
     User findUserByStatus(Integer status);*/

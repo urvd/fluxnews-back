@@ -3,6 +3,7 @@ package com.backend.fluxnewsapi.models;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
@@ -10,6 +11,8 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Embeddable
 public class ArticleUserKey implements Serializable {
-    private long userid;
-    private long articleid;
+    @Column(name = "user_id")
+    private long userId;
+    @Column(name = "article_id")
+    private long articleId;
 }

@@ -31,7 +31,7 @@ public class mappingArticlesDtoEntityTests {
     public void mappingArticleDtoConvertToEntityTest() throws MyMappingException {
         //given
         ArticleDto articleDto = new ArticleDto();
-        articleDto.setId(0);
+        articleDto.setNumberid(0);
         articleDto.setAuthor("pascal");
         articleDto.setContent("rctfvygbhnjok,lmlnjbhvgcfxfygnipo;poui,");
         articleDto.setTitle("title news");
@@ -41,7 +41,7 @@ public class mappingArticlesDtoEntityTests {
         Article article = entityDtoMapArticle.convertToEntity(articleDto,Article.class);
 
         //Then
-        assertThat(article.getId()).isEqualTo(articleDto.getId());
+        assertThat(article.getId()).isEqualTo(articleDto.getNumberid());
         assertThat(article.getAuthor()).isEqualTo(articleDto.getAuthor());
         assertThat(article.getContent()).isEqualTo(articleDto.getContent());
         assertThat(article.getTitle()).isEqualTo(articleDto.getTitle());
@@ -61,7 +61,7 @@ public class mappingArticlesDtoEntityTests {
         ArticleDto articleDto = entityDtoMapArticle.convertToDto(article,ArticleDto.class);
 
         //Then
-        assertThat(article.getId()).isEqualTo(articleDto.getId());
+        assertThat(article.getId()).isEqualTo(articleDto.getNumberid());
         assertThat(article.getAuthor()).isEqualTo(articleDto.getAuthor());
         assertThat(article.getContent()).isEqualTo(articleDto.getContent());
         assertThat(article.getTitle()).isEqualTo(articleDto.getTitle());

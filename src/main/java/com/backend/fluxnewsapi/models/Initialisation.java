@@ -1,13 +1,13 @@
 package com.backend.fluxnewsapi.models;
 
 import com.backend.fluxnewsapi.utils.DateUtils;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
-@EqualsAndHashCode
+@Getter
+@Setter
 @Entity(name = "initialisation")
 public class Initialisation {
     public Initialisation(){
@@ -22,10 +22,10 @@ public class Initialisation {
          */
         if(firstInit){
             this.updateday =  DateUtils.today();
-            this.toInitied = false;
+            this.toInitied = true;
         }else{
             this.updateday =  DateUtils.tomorrow();
-            this.toInitied = false;
+            this.toInitied = true;
         }
     }
     @Id

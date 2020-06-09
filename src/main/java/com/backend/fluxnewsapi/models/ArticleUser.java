@@ -12,25 +12,27 @@ import java.io.Serializable;
 @Entity(name = "articlesuser")
 public class ArticleUser implements Serializable {
 
-    public ArticleUser(User user) {
+    public ArticleUser(User user, Article article) {
         this.user = user;
+        this.article = article;
         this.isLike = false;
         this.isNote = false;
         this.isRead = false;
         this.isSave = false;
         this.noter = 0;
     }
-    @EmbeddedId
-    private ArticleUserKey keyId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long Id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @MapsId("userid")
-    @JoinColumn(name = "userid")
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity=User.class)
+    //@MapsId("user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @MapsId("articleid")
-    @JoinColumn(name = "articleid")
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Article.class)
+    //@MapsId("article_id")
+    @JoinColumn(name = "article_id")
     private Article article;
 
     @Column(name = "isread")

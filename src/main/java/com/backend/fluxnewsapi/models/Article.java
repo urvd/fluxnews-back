@@ -12,9 +12,12 @@ import java.util.Set;
 @Entity(name = "articles")
 public class Article {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private int numberid;
     private String source;
     private String author;
+    @Lob
     private String title;
     //@Column(name = "description",length = 1024)
     @Lob
@@ -26,17 +29,17 @@ public class Article {
     private String urlImage;
     @Column(name = "publishedat")
     private String publishedAt;
-    //@Column(name = "content",length = 65025)
     @Lob
     private String content;
-    @OneToMany(mappedBy = "article")
+
+    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> isRead;
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> isSave;
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> isNote;
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> isLike;
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> liker;
 }

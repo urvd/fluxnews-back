@@ -1,41 +1,40 @@
 package com.backend.fluxnewsapi.controllers;
 
-import com.backend.fluxnewsapi.models.*;
-import com.backend.fluxnewsapi.services.UserArticleRepository;
-import com.backend.fluxnewsapi.traitrements.NewsApiFetch;
 import com.backend.fluxnewsapi.dtos.EntityDtoMap;
 import com.backend.fluxnewsapi.dtos.models.ArticleDto;
 import com.backend.fluxnewsapi.dtos.models.Articlesfetched;
 import com.backend.fluxnewsapi.exceptions.MyMappingException;
 import com.backend.fluxnewsapi.exceptions.RessourceException;
-import com.backend.fluxnewsapi.services.ArticlesRepository;
-import com.backend.fluxnewsapi.services.InitialisationRepository;
-import com.backend.fluxnewsapi.services.UsersRepository;
+import com.backend.fluxnewsapi.models.Article;
+import com.backend.fluxnewsapi.models.Initialisation;
+import com.backend.fluxnewsapi.models.User;
+import com.backend.fluxnewsapi.repository.ArticlesRepository;
+import com.backend.fluxnewsapi.repository.InitialisationRepository;
+import com.backend.fluxnewsapi.repository.UserArticleRepository;
+import com.backend.fluxnewsapi.repository.UsersRepository;
+import com.backend.fluxnewsapi.traitrements.NewsApiFetch;
 import com.backend.fluxnewsapi.utils.DateUtils;
 import com.backend.fluxnewsapi.utils.ErrorCode;
 import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/articles")
-public class ArticlesRessource {
+public class ArticlesRessourceController {
 
     private UsersRepository usersRepository;
 
     private ArticlesRepository articlesRepository;
     private InitialisationRepository initRepository;
     private UserArticleRepository userArticleRepository;
-    public ArticlesRessource(UsersRepository usersRepository, ArticlesRepository articlesRepository,
-                             InitialisationRepository initRepository, UserArticleRepository userArticleRepository){
+    public ArticlesRessourceController(UsersRepository usersRepository, ArticlesRepository articlesRepository,
+                                       InitialisationRepository initRepository, UserArticleRepository userArticleRepository){
         this.usersRepository = usersRepository;
         this.articlesRepository = articlesRepository;
         this.initRepository = initRepository;
@@ -48,21 +47,20 @@ public class ArticlesRessource {
         return articlesRepository.findById(id);
     }
 
-    @GetMapping("/all/{userid}")
+/*    @GetMapping("/json")
+    public String jsonApi() throws IOException {
+        return  new NewsApiFetch().runArticles();
+    }*/
+
+    @GetMapping("/{userid}")
     public ResponseEntity<List<ArticleDto>> getArticles(@PathVariable(value = "userid") Long userid) throws JSONException, MyMappingException, IOException, ClassNotFoundException, RessourceException {
 
-        Optional<User> u = usersRepository.findById(userid);
-        Initialisation searchfor = new Initialisation();
-        searchfor.setUser(u.get());
-        ExampleMatcher matcher = ExampleMatcher.matching();
-        Example<Initialisation> example = Example.of(searchfor, matcher);
-        if(!initRepository.exists(example)){
-            throw new RessourceException(ErrorCode.NOT_FOUND);
-        }
+        User u = usersRepository.findById(userid)
+                .orElseThrow(() -> new RessourceException(ErrorCode.NOT_FOUND));
 
         EntityDtoMap<Article, ArticleDto> entityDtoMapArticleOfTheDay = new EntityDtoMap();
         if(haveMiseAJours(userid)){
-            fetchArticles(u.get());
+            fetchArticles(u);
             return ResponseEntity.ok().body(entityDtoMapArticleOfTheDay
                     .convertToDto(getArticlesStore(), ArticleDto.class));
         }
@@ -71,7 +69,6 @@ public class ArticlesRessource {
 
     }
     @GetMapping("/savelist")
-    @ResponseBody
     public List<ArticleDto> getArticleALirePlusTard(){
         //usersRepository.
         return null;
@@ -87,22 +84,14 @@ public class ArticlesRessource {
     }
 
     /**
-     * privates methodes
+     * privates methods
      */
 
     private boolean haveMiseAJours(long userid) throws IOException, MyMappingException, ClassNotFoundException, RessourceException, JSONException {
 
-        Boolean update = false;
         Initialisation initParam = initRepository.findByUserId(userid);
-        if(initParam.getUpdateday().equals(DateUtils.today()) && !initParam.isToInitied()){
-
-            initParam.setToInitied(true);
-            update = true;
-        }else {
-            return update;
-        }
-        if(initParam.getUpdateday().equals(DateUtils.today())
-                && (update || initParam.isToInitied())) {
+        if(initParam.getUpdateday().equals(DateUtils.today()) && initParam.isToInitied()){
+            initParam.setToInitied(false);
             initParam.setUpdateday(DateUtils.tomorrow());
             initRepository.save(initParam);
             return true;
@@ -112,20 +101,34 @@ public class ArticlesRessource {
 
     private void fetchArticles(User user) throws IOException, JSONException, MyMappingException {
         NewsApiFetch apiFetch = new NewsApiFetch();
-        List<Article> articleIsSets = new ArrayList<>();
-        EntityDtoMap<Article, ArticleDto> entityDtoMapArticleOfTheDay = new EntityDtoMap();
         Articlesfetched articlesFetched = apiFetch.fetchArticles();
-
-        for(int i=0; i<articlesFetched.getTotalResults(); i++){
+        /**
+         * Delete old articles
+        */
+        for(int i = 1; i <= articlesFetched.getTotalResults(); i++){
             if(articlesRepository.existsById(Long.valueOf(i))){
                 articlesRepository.delete(getArticleFromStore(Long.valueOf(i)).get());
             }
-            //ArticleUserKey Key
-            //ArticleUser ua:
         }
+
+        /**
+         * save or update new article
+         */
+        EntityDtoMap<Article, ArticleDto> entityDtoMapArticleOfTheDay = new EntityDtoMap();
+        List<Article> articleIsSets;
         articleIsSets = entityDtoMapArticleOfTheDay.convertToEntity(
                 articlesFetched.getArticles(),
                 Article.class);
+
         articlesRepository.saveAll(articleIsSets);
+        /**
+         * save or update refs in other entity
+         */
+        /*List<Article> store =  getArticlesStore();
+        List<ArticleUser> list = ArticleUserBuilder.withArticlesOfUser(user,store);
+        /*for(ArticleUser ua : list){
+            userArticleRepository.save(ua);
+        }
+        userArticleRepository.saveAll(list)*/;
     }
 }

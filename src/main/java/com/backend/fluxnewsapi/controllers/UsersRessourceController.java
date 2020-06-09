@@ -1,14 +1,13 @@
 package com.backend.fluxnewsapi.controllers;
 
 import com.backend.fluxnewsapi.dtos.EntityDtoMap;
-import com.backend.fluxnewsapi.dtos.models.ArticleUserBuilder;
 import com.backend.fluxnewsapi.dtos.models.UserDto;
 import com.backend.fluxnewsapi.exceptions.MyMappingException;
 import com.backend.fluxnewsapi.exceptions.RessourceException;
 import com.backend.fluxnewsapi.models.Initialisation;
 import com.backend.fluxnewsapi.models.User;
-import com.backend.fluxnewsapi.services.InitialisationRepository;
-import com.backend.fluxnewsapi.services.UsersRepository;
+import com.backend.fluxnewsapi.repository.InitialisationRepository;
+import com.backend.fluxnewsapi.repository.UsersRepository;
 import com.backend.fluxnewsapi.utils.ErrorCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +17,11 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/users")
-public class UsersRessource {
+public class UsersRessourceController {
     private final Logger LOG = Logger.getLogger(this.getClass().getName());
     private UsersRepository usersRepository;
     InitialisationRepository initRepository;
-    public UsersRessource(UsersRepository usersRepository, InitialisationRepository initRepository){
+    public UsersRessourceController(UsersRepository usersRepository, InitialisationRepository initRepository){
         this.usersRepository = usersRepository;
         this.initRepository = initRepository;
     }
@@ -69,7 +68,7 @@ public class UsersRessource {
         EntityDtoMap<User,UserDto> entityDtoMap = new EntityDtoMap<>();
         User user = entityDtoMap.convertToEntity(userDto,User.class);
         user.setConnectStatus(true);
-        usersRepository.save(user);
+
 
         /**
          * create Initialisation entity with ref new user.
@@ -77,6 +76,8 @@ public class UsersRessource {
         Initialisation initialisation = new Initialisation(true);
         initialisation.setUser(user);
         initRepository.save(initialisation);
+
+        usersRepository.save(user);
         return ResponseEntity.ok("created");
     }
 
@@ -84,8 +85,7 @@ public class UsersRessource {
     public ResponseEntity<String> modifyUser(@PathVariable(value = "id") Long id,
                                              @RequestBody  UserDto modifyUser) throws MyMappingException, IllegalAccessException, RessourceException {
         User userSearch = usersRepository.findById(id)
-                .orElseThrow(() -> new RessourceException(ErrorCode.NOT_FOUND));;
-        ArticleUserBuilder.withUser(userSearch,30);
+                .orElseThrow(() -> new RessourceException(ErrorCode.NOT_FOUND));
         EntityDtoMap<User,UserDto> entityDtoMap = new EntityDtoMap<>();
         UserDto userdto = entityDtoMap.convertToDto(userSearch,UserDto.class);
         Boolean hasModif = false;

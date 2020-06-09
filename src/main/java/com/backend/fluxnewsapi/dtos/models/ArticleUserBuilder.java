@@ -1,5 +1,6 @@
 package com.backend.fluxnewsapi.dtos.models;
 
+import com.backend.fluxnewsapi.models.Article;
 import com.backend.fluxnewsapi.models.ArticleUser;
 import com.backend.fluxnewsapi.models.User;
 
@@ -8,14 +9,14 @@ import java.util.List;
 
 public class ArticleUserBuilder {
 
-    public static ArticleUser withUser(User user){
-        return new ArticleUser(user);
+    private static ArticleUser build(User user, Article article){
+        return new ArticleUser(user,article);
     }
 
-    public static List<ArticleUser> withUser(User user, int nbRef){
+    public static List<ArticleUser> withArticlesOfUser(User user, List<Article> articles){
         List<ArticleUser> nRefUserArticles = new ArrayList<>();
-        for(int i = 0; i < nbRef; i++){
-            nRefUserArticles.add(withUser(user));
+        for(int i = 0; i < articles.size(); i++){
+            nRefUserArticles.add(build(user,articles.get(i)));
         }
         return nRefUserArticles;
     }

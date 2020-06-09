@@ -1,15 +1,13 @@
 package com.backend.fluxnewsapi.models;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
-@Data
-@EqualsAndHashCode
-@ToString
+@Getter
+@Setter
 @Entity(name = "users")
 public class User {
     public User(){};
@@ -22,17 +20,17 @@ public class User {
     @Column(name = "connectionstatus")
     private Boolean connectStatus;
 
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
     private Initialisation misajour;
 
-    @OneToMany(mappedBy = "user")
-    private Set<ArticleUser> isRead;
-    @OneToMany(mappedBy = "user")
-    private Set<ArticleUser> isSave;
-    @OneToMany(mappedBy = "user")
-    private Set<ArticleUser> isNote;
-    @OneToMany(mappedBy = "user")
-    private Set<ArticleUser> isLike;
-    @OneToMany(mappedBy = "user")
-    private Set<ArticleUser> liker;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ArticleUser> isRead;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ArticleUser> isSave;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ArticleUser> isNote;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ArticleUser> isLike;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ArticleUser> liker;
 }

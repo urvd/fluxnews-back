@@ -2,12 +2,15 @@ package com.backend.fluxnewsapi.dtos.models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.lang.Nullable;
 
 @Data
 @EqualsAndHashCode
 public class ArticleDto {
     public ArticleDto(){}
-    public ArticleDto(String source, String author, String title, String description, String url, String urlImage, String publishedAt, String content) {
+    public ArticleDto(@Nullable String source, @Nullable String author, @Nullable String title,
+                      @Nullable String description, @Nullable String url, @Nullable String urlImage,
+                      @Nullable String publishedAt, @Nullable String content) {
         this.source = source;
         this.author = author;
         this.title = title;
@@ -18,7 +21,8 @@ public class ArticleDto {
         this.content = content;
     }
 
-    private long id;
+    private int numberid;
+    //private Source source;
     private String source;
     private String author;
     private String title;
