@@ -2,7 +2,9 @@ package com.backend.fluxnewsapi.repository;
 
 import com.backend.fluxnewsapi.models.Initialisation;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface InitialisationRepository extends JpaRepository<Initialisation, Long> {
     /*@Query("SELECT*FROM initialisation")
     Initialisation findInitedDataParam();*/
