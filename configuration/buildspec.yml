@@ -1,9 +1,0 @@
-version: 0.2
-build:
-  #run-as: Linux-user-name
-  commands:
-    - mvn clean compile
-  post_build:
-    #run-as: Linux-user-name
-    commands:
-      - spring-boot:deploy

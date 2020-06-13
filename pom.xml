@@ -11,6 +11,7 @@
 <groupId>com.backend</groupId>
 <artifactId>fluxnews-api</artifactId>
 <version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 <name>fluxnews-api</name>
 <description>Demo project for Spring Boot</description>
 
@@ -78,23 +79,5 @@
 		</plugin>
 	</plugins>
 </build>
-<profiles>
-	<profile>
-		<id>fluxnews-api</id>
-		<build>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.1</version>
-					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
-					</configuration>
-				</plugin>
-			</plugins>
-		</build>
-	</profile>
-</profiles>
 
 </project>
