@@ -1,10 +1,10 @@
 package com.backend.fluxnewsapi.unit_tests;
 
-import com.backend.fluxnewsapi.dtos.EntityDtoMap;
-import com.backend.fluxnewsapi.dtos.models.ArticleDto;
-import com.backend.fluxnewsapi.dtos.models.UserDto;
-import com.backend.fluxnewsapi.exceptions.MyMappingException;
-import com.backend.fluxnewsapi.models.User;
+import com.backend.fluxnewsapi.domain.dtos.EntityDtoMap;
+import com.backend.fluxnewsapi.domain.dtos.models.ArticleDto;
+import com.backend.fluxnewsapi.domain.dtos.models.UserDto;
+import com.backend.fluxnewsapi.domain.exceptions.MyMappingException;
+import com.backend.fluxnewsapi.infrastucture.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
