@@ -16,5 +16,5 @@ phases:
 artifacts:
   files:
     - fluxnews-api-0.0.1-SNAPSHOT.war
-    #- .ebextensions/**/*
+    - .ebextensions/**/*
   #base-directory: 'target/fluxnews-api-0.0.1-SNAPSHOT'
