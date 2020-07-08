@@ -15,4 +15,5 @@ public interface ArticlesRepository  extends JpaRepository<Article, Long> {
     void insertAll();*/
 
     Article findByNumberid(int numberid);
+    Boolean existsByNumberid(int numberid);
 }

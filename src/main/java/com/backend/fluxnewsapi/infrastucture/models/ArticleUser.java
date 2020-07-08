@@ -12,15 +12,14 @@ import java.io.Serializable;
 @Entity(name = "articlesuser")
 public class ArticleUser implements Serializable {
 
-    public ArticleUser(User user, Article article) {
+/*    public ArticleUser(User user, Article article) {
         this.user = user;
         this.article = article;
         this.isLike = false;
         this.isNote = false;
         this.isRead = false;
-        this.isSave = false;
         this.noter = 0;
-    }
+    }*/
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
@@ -35,13 +34,11 @@ public class ArticleUser implements Serializable {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    @Column(name = "isread")
+    @Column(name = "isread",columnDefinition = "tinyint(1) default 0")
     private boolean isRead;
-    @Column(name = "issave")
-    private boolean isSave;
-    @Column(name = "isnote")
+    @Column(name = "isnote",columnDefinition = "tinyint(1) default 0")
     private boolean isNote;
-    @Column(name = "islike")
+    @Column(name = "islike",columnDefinition = "tinyint(1) default 0")
     private boolean isLike;
     private boolean liker;
     @Max(5)

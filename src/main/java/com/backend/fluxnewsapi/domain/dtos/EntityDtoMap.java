@@ -1,23 +1,18 @@
 package com.backend.fluxnewsapi.domain.dtos;
 
+import com.backend.fluxnewsapi.domain.exceptions.MyMappingException;
+import org.modelmapper.ModelMapper;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
-
-import com.backend.fluxnewsapi.domain.exceptions.MyMappingException;
-
 public class EntityDtoMap<T,U> {
-    //T : entity, U: dto
+
     private ModelMapper modelMapper;
     public EntityDtoMap(){
         modelMapper = new ModelMapper();
     }
-/*    private Map<String, U> map;
-    public U getObject(final String key) {
-        return map.get(key);
-    }*/
 
     public U convertToDto(T entity, Class<U> u) throws MyMappingException{
         try{

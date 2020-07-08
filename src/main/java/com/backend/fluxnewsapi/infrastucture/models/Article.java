@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
@@ -35,11 +36,11 @@ public class Article {
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> isRead;
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
-    private Set<ArticleUser> isSave;
-    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> isNote;
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> isLike;
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> liker;
+    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ArticleUser> noter;
 }

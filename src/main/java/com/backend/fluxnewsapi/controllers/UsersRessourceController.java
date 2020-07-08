@@ -1,12 +1,10 @@
-package com.backend.fluxnewsapi.infrastucture.controllers;
+package com.backend.fluxnewsapi.controllers;
 
 import com.backend.fluxnewsapi.domain.dtos.EntityDtoMap;
 import com.backend.fluxnewsapi.domain.dtos.models.UserDto;
 import com.backend.fluxnewsapi.domain.exceptions.MyMappingException;
 import com.backend.fluxnewsapi.domain.exceptions.RessourceException;
-import com.backend.fluxnewsapi.infrastucture.models.Initialisation;
 import com.backend.fluxnewsapi.infrastucture.models.User;
-import com.backend.fluxnewsapi.infrastucture.repository.InitialisationRepository;
 import com.backend.fluxnewsapi.infrastucture.repository.UsersRepository;
 import com.backend.fluxnewsapi.domain.utils.ErrorCode;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +18,8 @@ import java.util.logging.Logger;
 public class UsersRessourceController {
     private final Logger LOG = Logger.getLogger(this.getClass().getName());
     private UsersRepository usersRepository;
-    InitialisationRepository initRepository;
-    public UsersRessourceController(UsersRepository usersRepository, InitialisationRepository initRepository){
+    public UsersRessourceController(UsersRepository usersRepository){
         this.usersRepository = usersRepository;
-        this.initRepository = initRepository;
     }
     /**
      * Object: UserDto => nom, prenom, username, password
@@ -68,14 +64,6 @@ public class UsersRessourceController {
         EntityDtoMap<User,UserDto> entityDtoMap = new EntityDtoMap<>();
         User user = entityDtoMap.convertToEntity(userDto,User.class);
         user.setConnectStatus(true);
-
-
-        /**
-         * create Initialisation entity with ref new user.
-         */
-        Initialisation initialisation = new Initialisation(true);
-        initialisation.setUser(user);
-        initRepository.save(initialisation);
 
         usersRepository.save(user);
         return ResponseEntity.ok("created");

@@ -1,6 +1,5 @@
 package com.backend.fluxnewsapi;
 
-import com.backend.fluxnewsapi.config.DbConnection;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,13 +16,14 @@ public class FluxnewsApiApplication {
 	@RequestMapping(name = "/", method = RequestMethod.GET)
 	public String endpointRoot(){
 		String hello = "-- HELLO THE WORLD !!! --";
-		if(DbConnection.getRemoteConnection() != null){
+		/*if(DbConnection.getRemoteConnection() != null){
 			hello += "Secure";
-		}
+		}*/
 		return hello;
 	}
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(FluxnewsApiApplication.class, args);
 	}
 
