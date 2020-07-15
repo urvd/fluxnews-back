@@ -96,7 +96,7 @@
 	</resources>
 </build>
 
-	<profiles>
+	<!--profiles>
 		<profile>
 			<id>dev</id>
 			<activation>
@@ -112,6 +112,6 @@
 				<spring.profiles.active>prod</spring.profiles.active>
 			</properties>
 		</profile>
-	</profiles>
+	</profiles-->
 
 </project>
