@@ -11,10 +11,10 @@ phases:
   post_build:
     commands:
       - mvn clean package
-      - mv target/fluxnews-api-0.0.1-SNAPSHOT.war fluxnews-api-0.0.1-SNAPSHOT.war
+      - cp target/fluxnews-api-0.0.1-SNAPSHOT.war fluxnews-api-0.0.1-SNAPSHOT.war
       - echo Post-Build completed on `date`
 artifacts:
   files:
     - fluxnews-api-0.0.1-SNAPSHOT.war
     #- .ebextensions/**/*
-  #base-directory: 'target/fluxnews-api-0.0.1-SNAPSHOT'
+  base-directory: 'target/fluxnews-api-0.0.1-SNAPSHOT'
