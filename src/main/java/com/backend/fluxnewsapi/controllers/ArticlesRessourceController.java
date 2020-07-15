@@ -4,10 +4,9 @@ import com.backend.fluxnewsapi.domain.dtos.models.ArticleDto;
 import com.backend.fluxnewsapi.domain.exceptions.MyMappingException;
 import com.backend.fluxnewsapi.domain.exceptions.RessourceException;
 import com.backend.fluxnewsapi.usecase.articles.MettreAJours;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,15 +15,18 @@ import java.util.List;
 @RequestMapping("/api/articles")
 public class ArticlesRessourceController {
 
+    @Autowired
+    private MettreAJours articlesDuJours;
     @GetMapping("/all")
     public ResponseEntity<List<ArticleDto>> article() throws IOException, MyMappingException, RessourceException {
-        final MettreAJours articlesDuJours = new MettreAJours();
         return ResponseEntity.ok().body(articlesDuJours.fetch());
     }
 
-/*    @GetMapping("/article/{userid}")
-    public ResponseEntity<List<ArticleDto>> getArticles(@PathVariable(value = "userid") Long userid) throws JSONException, MyMappingException, IOException, ClassNotFoundException, RessourceException {
-        final MettreAJours articlesDuJours = new MettreAJours();
+    //ou
+
+    @GetMapping
+    public ResponseEntity<List<ArticleDto>> getArticles(@RequestParam(required = true, value = "userid") Long userid) throws MyMappingException, IOException, RessourceException {
         return ResponseEntity.ok().body(articlesDuJours.fetch(userid));
-    }*/
+    }
+
 }

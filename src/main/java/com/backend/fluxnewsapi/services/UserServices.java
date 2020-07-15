@@ -12,16 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserServices {
 
-    @Autowired
     UsersRepository usersRepository;
 
+    @Autowired
     public UserServices(UsersRepository usersRepository){
         this.usersRepository = usersRepository;
     }
- /*   public UserServices(UsersRepository usersRepository, InitialisationRepository initRepository){
-        this.usersRepository = usersRepository;
-        this.initRepository = initRepository;
-    }*/
 
     public User findUser(Long id) throws RessourceException {
         return usersRepository.findById(id)

@@ -22,6 +22,8 @@ public class User implements Serializable {
     private Boolean connectStatus;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ArticleUser> articleUsers;
+/*    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ArticleUser> isRead;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ArticleUser> isNote;
@@ -30,5 +32,5 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ArticleUser> liker;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ArticleUser> noter;
+    private List<ArticleUser> noter;*/
 }

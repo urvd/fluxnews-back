@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 
 @Data
@@ -34,6 +33,9 @@ public class Article {
     private String content;
 
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ArticleUser> articleUsers;
+
+/*    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> isRead;
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> isNote;
@@ -42,5 +44,5 @@ public class Article {
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ArticleUser> liker;
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ArticleUser> noter;
+    private List<ArticleUser> noter;*/
 }

@@ -6,22 +6,22 @@ import com.backend.fluxnewsapi.infrastucture.models.Article;
 import com.backend.fluxnewsapi.infrastucture.models.ArticleUser;
 import com.backend.fluxnewsapi.infrastucture.repository.ArticlesRepository;
 import com.backend.fluxnewsapi.infrastucture.repository.UserArticleRepository;
-import com.backend.fluxnewsapi.infrastucture.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("articleStoreService")
 public class ArticleStoreService {
-    @Autowired
-    private  UsersRepository usersRepository;
-    @Autowired
-    private UserArticleRepository userArticleRepository;
-    @Autowired
-    ArticlesRepository articlesRepository;
 
-    public ArticleStoreService(UsersRepository usersRepository, UserArticleRepository userArticleRepository) {
-        this.usersRepository = usersRepository;
+    private UserArticleRepository userArticleRepository;
+
+    private ArticlesRepository articlesRepository;
+
+    @Autowired
+    public ArticleStoreService(ArticlesRepository articlesRepository, UserArticleRepository userArticleRepository) {
+        this.articlesRepository = articlesRepository;
         this.userArticleRepository = userArticleRepository;
     }
     /**
@@ -31,11 +31,12 @@ public class ArticleStoreService {
         return articlesRepository.findAll();
     }
 
-    public  Article findArticlesWithRef(int id){
+    public Article findArticlesWithRef(int id){
         return articlesRepository.findByNumberid(id);
     }
-    public  boolean isArticlesWithRef(int id){
-        return articlesRepository.existsByNumberid(id);
+    public boolean isArticlesWithRef(int id){
+        boolean test = articlesRepository.existsByNumberid(id);
+        return test;
     }
 
     public List<Article> getArticleUser(Long userid) throws RessourceException {

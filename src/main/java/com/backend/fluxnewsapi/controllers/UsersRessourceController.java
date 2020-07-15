@@ -4,12 +4,14 @@ import com.backend.fluxnewsapi.domain.dtos.EntityDtoMap;
 import com.backend.fluxnewsapi.domain.dtos.models.UserDto;
 import com.backend.fluxnewsapi.domain.exceptions.MyMappingException;
 import com.backend.fluxnewsapi.domain.exceptions.RessourceException;
+import com.backend.fluxnewsapi.domain.utils.ErrorCode;
+import com.backend.fluxnewsapi.infrastucture.models.ArticleUser;
 import com.backend.fluxnewsapi.infrastucture.models.User;
 import com.backend.fluxnewsapi.infrastucture.repository.UsersRepository;
-import com.backend.fluxnewsapi.domain.utils.ErrorCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -54,9 +56,6 @@ public class UsersRessourceController {
         if(userByUserame != null || userByEmail != null){
             throw new RessourceException(ErrorCode.EXIST);
         }
-        /**
-         * creer un id et comparer avec ids existant
-         */
 
         /**
          * Save the new user and save a refence of it in others tables which it's required
@@ -64,6 +63,13 @@ public class UsersRessourceController {
         EntityDtoMap<User,UserDto> entityDtoMap = new EntityDtoMap<>();
         User user = entityDtoMap.convertToEntity(userDto,User.class);
         user.setConnectStatus(true);
+
+        List<ArticleUser> registerUser20Times = new ArrayList<>();
+        for( int i = 0; i < 20; i++){
+            ArticleUser ua = new ArticleUser(user);
+            registerUser20Times.add(ua);
+        }
+        user.setArticleUsers(registerUser20Times);
 
         usersRepository.save(user);
         return ResponseEntity.ok("created");

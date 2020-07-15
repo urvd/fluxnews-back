@@ -6,14 +6,19 @@ import com.backend.fluxnewsapi.infrastucture.models.ArticleUser;
 import com.backend.fluxnewsapi.infrastucture.repository.UserArticleRepository;
 import com.backend.fluxnewsapi.infrastucture.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component("userArticlesService")
 public class UserArticlesService {
-    @Autowired
+
+    private UserArticleRepository userArticleRepository;
     private UsersRepository usersRepository;
     @Autowired
-    private UserArticleRepository userArticleRepository;
+    public UserArticlesService(UserArticleRepository userArticleRepository) {
+        this.userArticleRepository = userArticleRepository;
+    }
 
     public List<ArticleUser> getArticlesUser(Long userid) throws RessourceException {
         List<ArticleUser> userArticles = userArticleRepository.findByUserId(userid);

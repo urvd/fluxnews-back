@@ -11,34 +11,33 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Entity(name = "articlesuser")
 public class ArticleUser implements Serializable {
+    public ArticleUser(){ }
 
-/*    public ArticleUser(User user, Article article) {
+    public ArticleUser(User user) {
+        this.user = user;
+    }
+
+    public ArticleUser(User user, Article article) {
         this.user = user;
         this.article = article;
-        this.isLike = false;
-        this.isNote = false;
-        this.isRead = false;
-        this.noter = 0;
-    }*/
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity=User.class)
-    //@MapsId("user_id")
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Article.class)
-    //@MapsId("article_id")
-    @JoinColumn(name = "article_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "articleid")
     private Article article;
 
-    @Column(name = "isread",columnDefinition = "tinyint(1) default 0")
+    @Column(name = "isread",columnDefinition = "boolean default false")
     private boolean isRead;
-    @Column(name = "isnote",columnDefinition = "tinyint(1) default 0")
+    @Column(name = "isnote",columnDefinition = "boolean default false")
     private boolean isNote;
-    @Column(name = "islike",columnDefinition = "tinyint(1) default 0")
+    @Column(name = "islike",columnDefinition = "boolean default false")
     private boolean isLike;
     private boolean liker;
     @Max(5)
