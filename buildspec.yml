@@ -15,6 +15,6 @@ phases:
       - echo Post-Build completed on `date`
 artifacts:
   files:
-    - fluxnews-api-0.0.1-SNAPSHOT.war
+    - target/fluxnews-api-0.0.1-SNAPSHOT.war
     #- .ebextensions/**/*
   #base-directory: 'target/fluxnews-api-0.0.1-SNAPSHOT.war'
