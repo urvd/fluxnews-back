@@ -1,17 +1,17 @@
-package com.backend.fluxnewsapi.infrastucture.controllers;
+package com.backend.fluxnewsapi.controllers;
 
 import com.backend.fluxnewsapi.domain.dtos.EntityDtoMap;
 import com.backend.fluxnewsapi.domain.dtos.models.UserDto;
 import com.backend.fluxnewsapi.domain.exceptions.MyMappingException;
 import com.backend.fluxnewsapi.domain.exceptions.RessourceException;
-import com.backend.fluxnewsapi.infrastucture.models.Initialisation;
-import com.backend.fluxnewsapi.infrastucture.models.User;
-import com.backend.fluxnewsapi.infrastucture.repository.InitialisationRepository;
-import com.backend.fluxnewsapi.infrastucture.repository.UsersRepository;
 import com.backend.fluxnewsapi.domain.utils.ErrorCode;
+import com.backend.fluxnewsapi.infrastucture.models.ArticleUser;
+import com.backend.fluxnewsapi.infrastucture.models.User;
+import com.backend.fluxnewsapi.infrastucture.repository.UsersRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,10 +20,8 @@ import java.util.logging.Logger;
 public class UsersRessourceController {
     private final Logger LOG = Logger.getLogger(this.getClass().getName());
     private UsersRepository usersRepository;
-    InitialisationRepository initRepository;
-    public UsersRessourceController(UsersRepository usersRepository, InitialisationRepository initRepository){
+    public UsersRessourceController(UsersRepository usersRepository){
         this.usersRepository = usersRepository;
-        this.initRepository = initRepository;
     }
     /**
      * Object: UserDto => nom, prenom, username, password
@@ -58,9 +56,6 @@ public class UsersRessourceController {
         if(userByUserame != null || userByEmail != null){
             throw new RessourceException(ErrorCode.EXIST);
         }
-        /**
-         * creer un id et comparer avec ids existant
-         */
 
         /**
          * Save the new user and save a refence of it in others tables which it's required
@@ -69,13 +64,12 @@ public class UsersRessourceController {
         User user = entityDtoMap.convertToEntity(userDto,User.class);
         user.setConnectStatus(true);
 
-
-        /**
-         * create Initialisation entity with ref new user.
-         */
-        Initialisation initialisation = new Initialisation(true);
-        initialisation.setUser(user);
-        initRepository.save(initialisation);
+        List<ArticleUser> registerUser20Times = new ArrayList<>();
+        for( int i = 0; i < 20; i++){
+            ArticleUser ua = new ArticleUser(user);
+            registerUser20Times.add(ua);
+        }
+        user.setArticleUsers(registerUser20Times);
 
         usersRepository.save(user);
         return ResponseEntity.ok("created");

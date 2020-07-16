@@ -12,12 +12,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 @RestController
 public class FluxnewsApiApplication {
+
 	@RequestMapping(name = "/", method = RequestMethod.GET)
 	public String endpointRoot(){
-		return "--\n  -- HELLO THE WORLD !!! --\n--";
+		String hello = "-- HELLO THE WORLD !!! --";
+		/*if(DbConnection.getRemoteConnection() != null){
+			hello += "Secure";
+		}*/
+		return hello;
 	}
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(FluxnewsApiApplication.class, args);
 	}
 
