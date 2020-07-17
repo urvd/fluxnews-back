@@ -22,7 +22,6 @@ public class ArticlesRessourceController {
         return ResponseEntity.ok().body(articlesDuJours.fetch());
     }
 
-    //ou
 
     @GetMapping
     public ResponseEntity<List<ArticleDto>> getArticles(@RequestParam(required = true, value = "userid") Long userid) throws MyMappingException, IOException, RessourceException {

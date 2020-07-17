@@ -5,7 +5,7 @@ import com.backend.fluxnewsapi.domain.dtos.models.ArticleDto;
 import com.backend.fluxnewsapi.domain.dtos.models.Articlesfetched;
 import com.backend.fluxnewsapi.domain.exceptions.MyMappingException;
 import com.backend.fluxnewsapi.domain.exceptions.RessourceException;
-import com.backend.fluxnewsapi.domain.utils.ErrorCode;
+import com.backend.fluxnewsapi.domain.exceptions.ErrorCode;
 import com.backend.fluxnewsapi.infrastucture.models.Article;
 import com.backend.fluxnewsapi.infrastucture.models.User;
 import com.backend.fluxnewsapi.services.ArticleStoreService;

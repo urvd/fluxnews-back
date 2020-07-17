@@ -32,7 +32,7 @@ public class Connection {
             if ( userAunt.getUsername().equals(user.getUsername())
                     && userAunt.getPassword().equals(user.getPassword()) ) {
                 user.setConnectStatus(true);
-                return userServices.addUser(user)? AuthentCase.LOGIN_SUCCESS: AuthentCase.LOGIN_FAIL;
+                return userServices.saveUser(user)? AuthentCase.LOGIN_SUCCESS: AuthentCase.LOGIN_FAIL;
             } else {
                 return  AuthentCase.LOGIN_FAIL;
             }
@@ -43,7 +43,7 @@ public class Connection {
         User user = userServices.findUser(iduser);
         if(user != null){
             user.setConnectStatus(false);
-            userServices.addUser(user);
+            userServices.saveUser(user);
             return true;
         }
         return false;
