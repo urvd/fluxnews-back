@@ -1,10 +1,9 @@
 package com.backend.fluxnewsapi.services;
 
+import com.backend.fluxnewsapi.domain.exceptions.ErrorCode;
 import com.backend.fluxnewsapi.domain.exceptions.RessourceException;
-import com.backend.fluxnewsapi.domain.utils.ErrorCode;
 import com.backend.fluxnewsapi.infrastucture.models.ArticleUser;
 import com.backend.fluxnewsapi.infrastucture.repository.UserArticleRepository;
-import com.backend.fluxnewsapi.infrastucture.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,7 @@ import java.util.List;
 public class UserArticlesService {
 
     private UserArticleRepository userArticleRepository;
-    private UsersRepository usersRepository;
+
     @Autowired
     public UserArticlesService(UserArticleRepository userArticleRepository) {
         this.userArticleRepository = userArticleRepository;

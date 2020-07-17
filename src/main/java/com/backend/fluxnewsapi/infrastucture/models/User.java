@@ -1,5 +1,6 @@
 package com.backend.fluxnewsapi.infrastucture.models;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity(name = "users")
+@EqualsAndHashCode
 public class User implements Serializable {
     public User(){};
     @Id

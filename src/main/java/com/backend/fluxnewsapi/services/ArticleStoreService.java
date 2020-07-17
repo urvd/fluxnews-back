@@ -1,7 +1,7 @@
 package com.backend.fluxnewsapi.services;
 
 import com.backend.fluxnewsapi.domain.exceptions.RessourceException;
-import com.backend.fluxnewsapi.domain.utils.ErrorCode;
+import com.backend.fluxnewsapi.domain.exceptions.ErrorCode;
 import com.backend.fluxnewsapi.infrastucture.models.Article;
 import com.backend.fluxnewsapi.infrastucture.models.ArticleUser;
 import com.backend.fluxnewsapi.infrastucture.repository.ArticlesRepository;
